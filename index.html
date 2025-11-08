@@ -31,13 +31,13 @@
             left: 0;
             width: 100%;
             height: 100%;
-            display: none; /* Domyślnie ukryte! */
+            display: none; 
             flex-direction: column;
             justify-content: flex-end;
             align-items: center;
             text-align: center;
             
-            /* ✅ POPRAWKA SKALOWANIA: Obraz w całości, bez obcinania */
+            /* ✅ POPRAWKA SKALOWANIA OBRAZU */
             background-size: contain; 
             background-repeat: no-repeat; 
             background-position: center;
@@ -51,7 +51,7 @@
         /* 🔥 ARCHITEKTONICZNA POPRAWKA: TYLKO AKTYWNA SCENA JEST WIDOCZNA */
         .scene.active {
             display: flex;
-            opacity: 1; /* Aktywacja i pokazanie */
+            opacity: 1; 
         }
         
         /* STYL DIALOGU (UX) */
@@ -68,6 +68,8 @@
             border: 1px solid rgba(255, 255, 255, 0.2); 
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
             text-align: left;
+            /* DODATKOWA KONTROLA NAD FONTAMI */
+            font-size: 16px; 
         }
         /* STYL DLA LANDING PAGE */
         #scene1 .dialogue-box {
@@ -91,13 +93,13 @@
             color: #FFC000; 
             text-shadow: 0 0 3px rgba(0, 0, 0, 0.8);
             margin-bottom: 5px;
-            font-size: 1.1em;
+            font-size: 1.1em; /* Względem font-size .dialogue-box */
             display: block;
             text-align: left;
         }
         .dialogue-text {
             color: #F0F0F0;
-            font-size: 1.15em; 
+            font-size: 1.15em; /* Względem font-size .dialogue-box */
             line-height: 1.5;
             margin-top: 5px;
         }
@@ -144,6 +146,21 @@
             }
         }
         
+        /* 🔥 NOWA POPRAWKA NA NAJMNIEJSZE EKRANY (np. 320-350px szerokości) */
+        @media (max-width: 380px) {
+            /* Zmniejszenie bazowego fontu w dialog boxie */
+            .dialogue-box {
+                font-size: 14px; 
+                padding: 15px; /* Mniejszy padding */
+                margin-bottom: 15px; /* Mniejszy margines na dole */
+            }
+            /* Mniejsze przyciski */
+            .choice-button, .action-button {
+                font-size: 15px;
+                padding: 12px 15px;
+            }
+        }
+
         /* Styl biletowy */
         #ticket-info {
             background: linear-gradient(to bottom, #fdf9f3, #ece6da);
@@ -333,7 +350,6 @@
 <script>
     let currentScene = 1;
     
-    // Funkcja showScene nie musi już manipulować opacity początkowej sceny
     function showScene(sceneID) {
         const targetSceneID = String(sceneID);
         
@@ -348,7 +364,7 @@
         if (nextSceneElement) {
             nextSceneElement.classList.add('active');
             currentScene = targetSceneID;
-            // Wymuszamy pokazanie na wypadek, gdyby CSS nie zdążył
+            // Wymuszamy pokazanie
             nextSceneElement.style.opacity = '1';
         }
     }
@@ -356,21 +372,17 @@
     function nextScene(sceneID) {
         const targetSceneID = String(sceneID);
         
-        // Fading out - resetujemy opacity bieżącej sceny, zanim przejdziemy dalej
+        // Fading out - resetujemy opacity bieżącej sceny
         const currentElement = document.getElementById('scene' + currentScene);
         if (currentElement) {
             currentElement.style.opacity = '0';
         }
 
-        // Po 500ms (czas trwania przejścia CSS) przełączamy scenę
+        // Po 500ms przełączamy scenę
         setTimeout(() => {
-            // Przechodzimy do nowej sceny. showScene zajmie się ustawieniem opacity='1'
             showScene(targetSceneID);
         }, 500);
     }
-    
-    // 🔥 POPRAWKA CTO: Inicjacja nie jest potrzebna, ponieważ scena 1 jest aktywna w HTML.
-    // Usunięcie document.addEventListener('DOMContentLoaded', ...) poprawia stabilność.
 </script>
 
 </body>
