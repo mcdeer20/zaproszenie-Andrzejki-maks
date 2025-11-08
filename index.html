@@ -53,14 +53,13 @@
             opacity: 1; 
         }
         
-        /* STYL DIALOGU (UX) - BAZA Z DYNAMICZNYM PADDINGIEM */
+        /* STYL DIALOGU (UX) - BAZA Z DYNAMICZNYM SKALOWANIEM */
         .dialogue-box {
             background: rgba(0, 0, 0, 0.65);
             backdrop-filter: blur(5px);
             -webkit-backdrop-filter: blur(5px);
             
-            /* 🔥 KLUCZOWA POPRAWKA: Dynamiczny Padding skalujący się z Viewportem */
-            /* 1.5vmin to około 6-10px na większości telefonów, mniej na mniejszych */
+            /* 🔥 KLUCZOWA POPRAWKA A: Dynamiczny Padding skalujący się z Viewportem */
             padding: 2vmin; 
             
             width: 95%; 
@@ -71,14 +70,15 @@
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
             text-align: left;
             
+            /* 🔥 KLUCZOWA POPRAWKA B: Płynna Typografia (Fluid Typography) */
+            /* Min: 14px, Preferred: 0.8rem + 1vw, Max: 18px */
+            font-size: clamp(14px, 0.8rem + 1vw, 18px);
+            
             /* Domyślny, minimalny odstęp od dołu */
             margin-bottom: 10px; 
             
             /* 🔥 POPRAWKA iOS SAFE AREA: Dodanie marginesu strefy bezpieczeństwa */
             margin-bottom: calc(10px + env(safe-area-inset-bottom, 0px));
-            
-            /* Font size skalowany względem viewportu (mniej agresywnie niż padding) */
-            font-size: calc(14px + 0.3vmin);
         }
         
         /* STYL DLA LANDING PAGE - Dynamicznie skalowany */
@@ -105,18 +105,20 @@
             color: #FFC000; 
             text-shadow: 0 0 3px rgba(0, 0, 0, 0.8);
             margin-bottom: 5px;
+            /* Zostawiamy w 'em' – skaluje się relatywnie do rozmiaru bazowego dialog-boxa (który jest clampowany) */
             font-size: 1.1em; 
             display: block;
             text-align: left;
         }
         .dialogue-text {
             color: #F0F0F0;
+            /* Zostawiamy w 'em' – skaluje się relatywnie do rozmiaru bazowego dialog-boxa (który jest clampowany) */
             font-size: 1.15em; 
             line-height: 1.5;
             margin-top: 5px;
         }
 
-        /* STYLISTYKA PRZYCISKÓW - Wciąż stała wielkość, dla lepszej interaktywności dotykowej */
+        /* STYLISTYKA PRZYCISKÓW - Stała wielkość (dla dotyku) */
         .choice-button, .action-button {
             padding: 14px 20px;
             margin: 8px auto; 
