@@ -48,29 +48,55 @@
             box-sizing: border-box;
         }
         
-        /* 🔥 ARCHITEKTONICZNA POPRAWKA: TYLKO AKTYWNA SCENA JEST WIDOCZNA */
         .scene.active {
             display: flex;
             opacity: 1; 
         }
         
-        /* STYL DIALOGU (UX) */
+        /* STYL DIALOGU (UX) - BAZA */
         .dialogue-box {
             background: rgba(0, 0, 0, 0.65);
             backdrop-filter: blur(5px);
             -webkit-backdrop-filter: blur(5px);
+            
+            /* Domyślne wartości (dla PC/większych tabletów) */
             padding: 20px;
-            border-radius: 12px;
-            margin-bottom: 25px;
+            margin-bottom: 25px; 
+            
             width: 95%; 
             max-width: 600px; 
             min-height: 70px;
+            border-radius: 12px;
             border: 1px solid rgba(255, 255, 255, 0.2); 
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
             text-align: left;
-            /* DODATKOWA KONTROLA NAD FONTAMI */
             font-size: 16px; 
         }
+        
+        /* 🔥 WARSTWA 1: OPTYMALIZACJA DLA EKRANÓW PONIŻEJ 450px (Większość telefonów) */
+        @media (max-width: 450px) {
+            .dialogue-box {
+                /* Zmniejszanie fizycznego rozmiaru skrzynki */
+                padding: 15px; 
+                margin-bottom: 10px; /* Zmniejszenie dystansu od dołu ekranu */
+                font-size: 15px; 
+            }
+        }
+        
+        /* 🔥 WARSTWA 2: OPTYMALIZACJA DLA NAJMNIEJSZYCH EKRANÓW (poniżej 350px) */
+        @media (max-width: 350px) {
+             .dialogue-box {
+                /* Maksymalna kompresja dla małych urządzeń */
+                padding: 12px; 
+                margin-bottom: 5px; 
+                font-size: 14px; 
+            }
+            .choice-button, .action-button {
+                font-size: 14px;
+                padding: 10px 15px;
+            }
+        }
+
         /* STYL DLA LANDING PAGE */
         #scene1 .dialogue-box {
             background: rgba(0, 0, 0, 0.4);
@@ -93,18 +119,18 @@
             color: #FFC000; 
             text-shadow: 0 0 3px rgba(0, 0, 0, 0.8);
             margin-bottom: 5px;
-            font-size: 1.1em; /* Względem font-size .dialogue-box */
+            font-size: 1.1em; 
             display: block;
             text-align: left;
         }
         .dialogue-text {
             color: #F0F0F0;
-            font-size: 1.15em; /* Względem font-size .dialogue-box */
+            font-size: 1.15em; 
             line-height: 1.5;
             margin-top: 5px;
         }
 
-        /* STYLISTYKA PRZYCISKÓW (Zintegrowana Responsywność) */
+        /* STYLISTYKA PRZYCISKÓW */
         .choice-button, .action-button {
             padding: 14px 20px;
             margin: 8px auto; 
@@ -119,6 +145,7 @@
             text-decoration: none; 
             box-sizing: border-box;
         }
+        
         .choice-button {
             background-color: #ff4500;
             color: white;
@@ -143,21 +170,6 @@
                 width: 90%; 
                 display: block; 
                 margin: 8px auto; 
-            }
-        }
-        
-        /* 🔥 NOWA POPRAWKA NA NAJMNIEJSZE EKRANY (np. 320-350px szerokości) */
-        @media (max-width: 380px) {
-            /* Zmniejszenie bazowego fontu w dialog boxie */
-            .dialogue-box {
-                font-size: 14px; 
-                padding: 15px; /* Mniejszy padding */
-                margin-bottom: 15px; /* Mniejszy margines na dole */
-            }
-            /* Mniejsze przyciski */
-            .choice-button, .action-button {
-                font-size: 15px;
-                padding: 12px 15px;
             }
         }
 
