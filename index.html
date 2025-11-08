@@ -57,6 +57,7 @@
             border-radius: 12px;
             margin-bottom: 25px;
             width: 95%; /* Szerokość mobilna */
+            max-width: 600px; /* Ograniczenie na PC */
             min-height: 70px;
             border: 1px solid rgba(255, 255, 255, 0.2); 
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
@@ -67,17 +68,17 @@
             background: rgba(0, 0, 0, 0.4);
             border: 1px solid rgba(255, 255, 255, 0.1); 
             width: 80%; /* Węższy */
+            max-width: 400px; /* Węższy */
             padding: 25px; 
             margin-bottom: 50px; 
             text-align: center;
         }
         
         /* STYL DLA ZŁEGO ZAKOŃCZENIA - Czarne i Mroczne */
-        #scene6a .dialogue-box, #scene7a .dialogue-box {
+        #scene60 .dialogue-box, #scene70 .dialogue-box {
              background: rgba(0, 0, 0, 0.95);
              border: 1px solid #FF0000; /* Czerwona ramka ostrzegawcza */
         }
-
 
         .narrator-name {
             font-weight: 800;
@@ -105,7 +106,10 @@
             transition: background-color 0.3s;
             cursor: pointer;
             width: 90%; /* Domyślnie na całą szerokość */
+            max-width: 350px; /* Ograniczenie na PC */
             display: block; 
+            text-decoration: none; /* Dla linków, jak w scenie 11 */
+            box-sizing: border-box;
         }
         .choice-button {
             background-color: #ff4500;
@@ -115,15 +119,27 @@
             background-color: #0088CC;
             color: white;
         }
+        
         /* Dwa przyciski obok siebie (Scena 3) */
         #scene3 .choice-button {
             width: 45%; 
+            max-width: 250px; /* Mniejsze ograniczenie */
             display: inline-block;
             font-size: 16px;
+            margin: 8px 1%; /* Mniejszy margines boczny */
         }
+        
+        /* POPRAWKA RESPONSYWNOŚCI: Na małych ekranach przyciski znów jeden pod drugim */
+        @media (max-width: 600px) {
+            #scene3 .choice-button {
+                width: 90%; /* Pełna szerokość na małych ekranach */
+                display: block; /* Ustawienie na blokowe, aby były jeden pod drugim */
+                margin: 8px auto; /* Wyśrodkowanie */
+            }
+        }
+        
         /* Styl biletowy */
         #ticket-info {
-            /* ... style z poprzedniej iteracji ... */
             background: linear-gradient(to bottom, #fdf9f3, #ece6da);
             color: #333;
             padding: 40px;
@@ -132,6 +148,7 @@
             text-align: center;
             margin-bottom: 50px;
             max-width: 350px;
+            width: 90%; /* Responsywność */
             border: 1px solid rgba(255, 255, 255, 0.5); 
         }
 
@@ -150,7 +167,7 @@
     <div id="scene1" class="scene active" style="background-image: url('grafika/scena 1.jpg');"> 
         <div class="dialogue-box" style="text-align: center;">
             <h1>MAKS JABŁKO NA NOCKACH SAUNOWYCH 🏋️</h1>
-            <p class="dialogue-text" style="text-align: center;">Ta historia ma dwa zakończenia. Które wybierzesz?</p>
+            <p class="dialogue-text" style="text-align: center; color: white;">Ta historia ma dwa zakończenia. Które wybierzesz?</p>
             <button class="action-button" onclick="nextScene(2)">ROZPOCZNIJ PRZYGODĘ</button>
         </div>
     </div>
@@ -159,36 +176,35 @@
         <div class="dialogue-box">
             <span class="narrator-name">Narrator:</span>
             <p class="dialogue-text">Maks, człowiek-jabłko, właśnie kończy serię. Nagle telefon wibruje: powiadomienie od Jelonków: **"Chcesz iść na saunę?"**</p>
-            <button class="action-button" onclick="nextScene(2.1)">DALEJ</button>
+            <button class="action-button" onclick="nextScene('2.1')">DALEJ</button>
         </div>
     </div>
-	
- <div id="scene2.1" class="scene" style="background-image: url('grafika/scena 2.1.jpg');">
+    
+    <div id="scene2.1" class="scene" style="background-image: url('grafika/scena 2.1.jpg');">
         <div class="dialogue-box">
             <span class="narrator-name">Maks:</span>
             <p class="dialogue-text">Hmmm.....</p>
             <button class="action-button" onclick="nextScene(3)">DALEJ</button>
-                 </div>
-		 </div>
-		 
-		
+        </div>
+    </div>
+        
     <div id="scene3" class="scene" style="background-image: url('grafika/scena 3.jpg');">
         <div class="dialogue-box">
             <span class="narrator-name">Maks:</span>
             <p class="dialogue-text">Musze skończyć trening.... Ale propozycja od Jelonków kusi...</p>
             <button class="choice-button" onclick="nextScene(40)">DOKOŃCZ TRENING (UDAWAJ, ŻE NIE WIDZISZ)</button>
-            <button class="choice-button" onclick="nextScene(3.1)">ODPISZ: PEWNIE!</button>
+            <button class="choice-button" onclick="nextScene('3.1')">ODPISZ: PEWNIE!</button>
         </div>
     </div>
 
- <div id="scene3.1" class="scene" style="background-image: url('grafika/scena 3.1.jpg');">
+    <div id="scene3.1" class="scene" style="background-image: url('grafika/scena 3.1.jpg');">
         <div class="dialogue-box">
             <span class="narrator-name">Maks:</span>
-            <p class="dialogue-text">Pewnie! </p>
+            <p class="dialogue-text">Pewnie!</p>
             <button class="action-button" onclick="nextScene(4)">DALEJ</button>
-                 </div>
-		 </div>
-		 
+        </div>
+    </div>
+        
     <div id="scene40" class="scene" style="background-image: url('grafika/scena 4a.jpg');">
         <div class="dialogue-box">
             <span class="narrator-name">SMS od Jelonka:</span>
@@ -212,7 +228,7 @@
             <button class="action-button" onclick="nextScene(70)">DALEJ</button>
         </div>
     </div>
-    
+        
     <div id="scene70" class="scene" style="background-image: url('grafika/scena 7a.jpg');">
         <div class="dialogue-box">
             <h2 style="color: #FF0000; text-align: center;">KONIEC GRY (ZŁE ZAKOŃCZENIE)</h2>
@@ -228,7 +244,7 @@
             <button class="action-button" onclick="nextScene(5)">DALEJ, IDZIEMY DO TERM</button>
         </div>
     </div>
-    
+        
     <div id="scene5" class="scene wide-scene" style="background-image: url('grafika/scena 5b.jpg');">
         <div class="dialogue-box">
             <span class="narrator-name">Maks:</span>
@@ -260,7 +276,7 @@
             <button class="action-button" onclick="nextScene(9)">CZEKAM NA SPEKTAKL</button>
         </div>
     </div>
-    
+        
     <div id="scene9" class="scene wide-scene" style="background-image: url('grafika/scena 9b.jpg');">
         <div class="dialogue-box">
             <span class="narrator-name">Patitka:</span>
@@ -270,88 +286,92 @@
     </div>
 
     <div id="scene10" class="scene" style="background-image: url('grafika/scena 10.jpg');">
-         <div class="dialogue-box" style="background: rgba(255, 255, 255, 0.9); color: black; text-align: center;">
-            <h2 style="color: #ff4500;">GRATULACJE! 🔥</h2>
-            <p class="dialogue-text" style="color: black; text-align: center; margin-bottom: 10px;">Gratulacje! Wybrałeś relaks, a nie ból. W nagrodę otrzymujesz...</p>
-            <button class="choice-button" onclick="nextScene(11)">ODBIERZ BILET</button>
+           <div class="dialogue-box" style="background: rgba(255, 255, 255, 0.9); color: black; text-align: center;">
+                <h2 style="color: #ff4500;">GRATULACJE! 🔥</h2>
+                <p class="dialogue-text" style="color: black; text-align: center; margin-bottom: 10px;">Gratulacje! Wybrałeś relaks, a nie ból. W nagrodę otrzymujesz...</p>
+                <button class="choice-button" onclick="nextScene(11)">ODBIERZ BILET</button>
+           </div>
+    </div>
+    
+    <div id="scene11" class="scene" style="background-image: url('grafika/scena 11.png'); justify-content: center;">
+        <div id="ticket-info">
+            
+            <h2>TWÓJ CYFROWY BILET</h2>
+            
+            <p style="font-weight: 700; margin: 15px 0;">Andrzejkowa Noc Saunowa</p>
+            
+            <hr style="border: 0; height: 1px; background: #ddd; margin: 20px 0;">
+
+            <p>Data: **28 Listopada**</p>
+            <p>Godzina: **18:00**</p>
+            <p>Lokalizacja: Termy Rzymskie</p>
+            <p class="location-address">Bolesława i Władysława Dehnelów 2, 41-250 Czeladź</p>
+
+            <hr style="border: 0; height: 1px; background: #ddd; margin: 20px 0 30px 0;">
+            
+            <a href="https://drive.google.com/uc?export=download&id=1JxShWI0eATDmMB_R64JHaGjV0Lt-BUAg" download="zaproszenie-maks.pdf" 
+                class="choice-button" 
+                style="text-decoration: none; display: block; text-align: center; margin: 0 auto 15px auto; padding: 15px 20px; font-size: 18px; max-width: 100%;">
+                    POBIERZ SWOJE ZAPROSZENIE (PDF)
+            </a>
+            
+            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Andrzejkowa+Noc+Saunowa&dates=20251128T180000/20251128T230000&details=Zaproszenie+od+Jelonków+na+Noc+Saunową+w+Termach+Rzymskich!&location=Termy+Rzymskie%2C+Czeladź" 
+                target="_blank" class="action-button" 
+                style="text-decoration: none; display: block; text-align: center; 
+                       margin-top: 5px; background-color: #007bff; color: white;">
+                    DODAJ DO KALENDARZA
+            </a>
+            
+            <p style="margin-top: 25px; font-weight: bold; font-size: 0.9em;">Pamiętaj: Czekamy na Ciebie!</p>
+
         </div>
     </div>
-   
-	 <div id="scene11" class="scene" style="background-image: url('grafika/scena 11.png'); justify-content: center;">
-    <div id="ticket-info">
-        
-        <h2>TWÓJ CYFROWY BILET</h2>
-        
-        <p style="font-weight: 700; margin: 15px 0;">Andrzejkowa Noc Saunowa</p>
-        
-        <hr style="border: 0; height: 1px; background: #ddd; margin: 20px 0;">
-
-        <p>Data: **28 Listopada**</p>
-        <p>Godzina: **18:00**</p>
-        <p>Lokalizacja: Termy Rzymskie</p>
-        <p class="location-address">Bolesława i Władysława Dehnelów 2, 41-250 Czeladź</p>
-
-        <hr style="border: 0; height: 1px; background: #ddd; margin: 20px 0 30px 0;">
-        
-        <a href="https://drive.google.com/uc?export=download&id=1JxShWI0eATDmMB_R64JHaGjV0Lt-BUAg" download="zaproszenie-maks.pdf" 
-           class="choice-button" 
-           style="text-decoration: none; display: block; text-align: center; margin: 0 auto 15px auto; padding: 15px 20px; font-size: 18px; max-width: 100%;">
-            POBIERZ SWOJE ZAPROSZENIE (PDF)
-        </a>
-        
-        <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Andrzejkowa+Noc+Saunowa&dates=20251128T180000/20251128T230000&details=Zaproszenie+od+Jelonków+na+Noc+Saunową+w+Termach+Rzymskich!&location=Termy+Rzymskie%2C+Czeladź" 
-           target="_blank" class="action-button" 
-           style="text-decoration: none; display: block; text-align: center; 
-                  margin-top: 5px; background-color: #007bff; color: white;">
-            DODAJ DO KALENDARZA
-        </a>
-        
-        <p style="margin-top: 25px; font-weight: bold; font-size: 0.9em;">Pamiętaj: Czekamy na Ciebie!</p>
-
-    </div>
-
-</div>
 
 <script>
     let currentScene = 1;
     
     function showScene(sceneID) {
-        // ... (Kod showScene) ...
+        // 1. Ukrywamy wszystkie sceny i resetujemy opacity
         document.querySelectorAll('.scene').forEach(scene => {
             scene.classList.remove('active');
+            scene.style.opacity = '0'; 
         });
 
+        // 2. Aktywujemy następną scenę
         const nextSceneElement = document.getElementById('scene' + sceneID);
         if (nextSceneElement) {
             nextSceneElement.classList.add('active');
             currentScene = sceneID;
+            // Opacity='1' zostanie ustawione przez funkcję nextScene po opóźnieniu
         }
     }
 
     function nextScene(sceneID) {
-        // Reset ID dla scen z literami (np. 40, 50, 60, 70, 4, 5, 6, 7, 8, 9, 10, 11)
-        if (sceneID < 1 || sceneID > 11) {
-            sceneID = String(sceneID);
-        }
+        // Konwersja na string, aby obsłużyć sceny np. '2.1'
+        const targetSceneID = String(sceneID);
         
+        // Fading out - resetujemy opacity bieżącej sceny
         const currentElement = document.getElementById('scene' + currentScene);
         if (currentElement) {
             currentElement.style.opacity = '0';
         }
 
+        // Po 500ms (czas trwania przejścia CSS) przełączamy scenę
         setTimeout(() => {
-            showScene(sceneID);
-            const nextElement = document.getElementById('scene' + sceneID);
+            showScene(targetSceneID);
+            // Po przełączeniu sceny, ustawiamy jej pełną widoczność
+            const nextElement = document.getElementById('scene' + targetSceneID);
             if (nextElement) {
                 nextElement.style.opacity = '1';
             }
         }, 500);
     }
     
+    // Inicjalizacja gry po załadowaniu DOM
     document.addEventListener('DOMContentLoaded', () => {
         showScene(1);
     });
 </script>
-
 </body>
+
 </html>
