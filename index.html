@@ -31,15 +31,15 @@
             left: 0;
             width: 100%;
             height: 100%;
-            display: none;
+            display: none; /* Domyślnie ukryte! */
             flex-direction: column;
             justify-content: flex-end;
             align-items: center;
             text-align: center;
             
-            /* 🔥 KLUCZOWA POPRAWKA SCALOWANIA OBRAZU */
-            background-size: contain; /* Obraz będzie w całości widoczny, bez obcinania */
-            background-repeat: no-repeat; /* Zapobiega powielaniu obrazu */
+            /* ✅ POPRAWKA SKALOWANIA: Obraz w całości, bez obcinania */
+            background-size: contain; 
+            background-repeat: no-repeat; 
             background-position: center;
             
             transition: opacity 0.5s ease-in-out;
@@ -47,11 +47,13 @@
             padding: 20px;
             box-sizing: border-box;
         }
+        
+        /* 🔥 ARCHITEKTONICZNA POPRAWKA: TYLKO AKTYWNA SCENA JEST WIDOCZNA */
         .scene.active {
             display: flex;
-            opacity: 1;
+            opacity: 1; /* Aktywacja i pokazanie */
         }
-
+        
         /* STYL DIALOGU (UX) */
         .dialogue-box {
             background: rgba(0, 0, 0, 0.65);
@@ -100,7 +102,7 @@
             margin-top: 5px;
         }
 
-        /* STYLISTYKA PRZYCISKÓW */
+        /* STYLISTYKA PRZYCISKÓW (Zintegrowana Responsywność) */
         .choice-button, .action-button {
             padding: 14px 20px;
             margin: 8px auto; 
@@ -124,7 +126,7 @@
             color: white;
         }
         
-        /* Dwa przyciski obok siebie (Scena 3) */
+        /* Dwa przyciski obok siebie (Scena 3) - Desktop */
         #scene3 .choice-button {
             width: 45%; 
             max-width: 250px; 
@@ -156,7 +158,6 @@
             border: 1px solid rgba(255, 255, 255, 0.5); 
         }
 
-        /* Klasa .wide-scene staje się zbędna, ale zostawiam ją, aby zapewnić czarne tło pod obrazem */
         .wide-scene {
             background-color: #000 !important; 
         }
@@ -166,7 +167,7 @@
 <body>
 
 <div id="game-container">
-    <div id="scene1" class="scene active" style="background-image: url('grafika/scena 1.jpg');"> 
+    <div id="scene1" class="scene active" style="background-image: url('grafika/scena 1.jpg'); opacity: 1;"> 
         <div class="dialogue-box" style="text-align: center;">
             <h1>MAKS JABŁKO NA NOCKACH SAUNOWYCH 🏋️</h1>
             <p class="dialogue-text" style="text-align: center; color: white;">Ta historia ma dwa zakończenia. Które wybierzesz?</p>
@@ -332,26 +333,30 @@
 <script>
     let currentScene = 1;
     
+    // Funkcja showScene nie musi już manipulować opacity początkowej sceny
     function showScene(sceneID) {
-        // Ukrywamy wszystkie sceny i resetujemy opacity
+        const targetSceneID = String(sceneID);
+        
+        // Ukrywamy WSZYSTKIE sceny
         document.querySelectorAll('.scene').forEach(scene => {
             scene.classList.remove('active');
             scene.style.opacity = '0'; 
         });
 
-        // Aktywujemy następną scenę
-        const nextSceneElement = document.getElementById('scene' + sceneID);
+        // Aktywujemy WŁAŚCIWĄ scenę
+        const nextSceneElement = document.getElementById('scene' + targetSceneID);
         if (nextSceneElement) {
             nextSceneElement.classList.add('active');
-            currentScene = sceneID;
+            currentScene = targetSceneID;
+            // Wymuszamy pokazanie na wypadek, gdyby CSS nie zdążył
+            nextSceneElement.style.opacity = '1';
         }
     }
 
     function nextScene(sceneID) {
-        // Konwersja na string, aby obsłużyć sceny np. '2.1'
         const targetSceneID = String(sceneID);
         
-        // Fading out - resetujemy opacity bieżącej sceny
+        // Fading out - resetujemy opacity bieżącej sceny, zanim przejdziemy dalej
         const currentElement = document.getElementById('scene' + currentScene);
         if (currentElement) {
             currentElement.style.opacity = '0';
@@ -359,19 +364,13 @@
 
         // Po 500ms (czas trwania przejścia CSS) przełączamy scenę
         setTimeout(() => {
+            // Przechodzimy do nowej sceny. showScene zajmie się ustawieniem opacity='1'
             showScene(targetSceneID);
-            // Po przełączeniu sceny, ustawiamy jej pełną widoczność
-            const nextElement = document.getElementById('scene' + targetSceneID);
-            if (nextElement) {
-                nextElement.style.opacity = '1';
-            }
         }, 500);
     }
     
-    // Inicjalizacja gry po załadowaniu DOM
-    document.addEventListener('DOMContentLoaded', () => {
-        showScene(1);
-    });
+    // 🔥 POPRAWKA CTO: Inicjacja nie jest potrzebna, ponieważ scena 1 jest aktywna w HTML.
+    // Usunięcie document.addEventListener('DOMContentLoaded', ...) poprawia stabilność.
 </script>
 
 </body>
