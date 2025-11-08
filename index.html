@@ -59,7 +59,7 @@
             backdrop-filter: blur(5px);
             -webkit-backdrop-filter: blur(5px);
             
-            /* 🔥 KLUCZOWA POPRAWKA A: Dynamiczny Padding skalujący się z Viewportem */
+            /* 🔥 POPRAWKA A: Dynamiczny Padding skalujący się z Viewportem */
             padding: 2vmin; 
             
             width: 95%; 
@@ -70,9 +70,7 @@
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
             text-align: left;
             
-            /* 🔥 KLUCZOWA POPRAWKA B: Płynna Typografia (Fluid Typography) */
-            /* Min: 14px, Preferred: 0.8rem + 1vw, Max: 18px */
-            font-size: clamp(14px, 0.8rem + 1vw, 18px);
+            /* Usuwamy bazowy font-size, by clamp() działał bezpośrednio na elementach potomnych */
             
             /* Domyślny, minimalny odstęp od dołu */
             margin-bottom: 10px; 
@@ -81,6 +79,43 @@
             margin-bottom: calc(10px + env(safe-area-inset-bottom, 0px));
         }
         
+        /* 🔥 POPRAWKA B: SKALOWANIE NAGŁÓWKÓW H1 i H2 (Fluid Typography) */
+        
+        /* Nagłówek H1 (tytuł na scenie 1) */
+        #scene1 h1 {
+            /* Min: 24px, Preferred: 3rem + 2vw, Max: 48px */
+            font-size: clamp(24px, 3rem + 2vw, 48px);
+            line-height: 1.1;
+            margin-bottom: 0.5em;
+        }
+        
+        /* Nagłówki H2 (np. KONIEC GRY, GRATULACJE) */
+        .dialogue-box h2 {
+            /* Min: 20px, Preferred: 2rem + 1vw, Max: 32px */
+            font-size: clamp(20px, 2rem + 1vw, 32px);
+            line-height: 1.2;
+        }
+        
+        /* 🔥 NOWA POPRAWKA: SKALOWANIE TEKSTU DIALOGOWEGO */
+        .narrator-name {
+            font-weight: 800;
+            color: #FFC000; 
+            text-shadow: 0 0 3px rgba(0, 0, 0, 0.8);
+            margin-bottom: 5px;
+            /* Min: 15px, Preferred: 0.8rem + 0.5vw, Max: 19px */
+            font-size: clamp(15px, 0.8rem + 0.5vw, 19px); 
+            display: block;
+            text-align: left;
+        }
+        
+        .dialogue-text {
+            color: #F0F0F0;
+            line-height: 1.5;
+            margin-top: 5px;
+            /* Min: 14px, Preferred: 0.7rem + 0.5vw, Max: 18px */
+            font-size: clamp(14px, 0.7rem + 0.5vw, 18px); 
+        }
+
         /* STYL DLA LANDING PAGE - Dynamicznie skalowany */
         #scene1 .dialogue-box {
             background: rgba(0, 0, 0, 0.4);
@@ -98,24 +133,6 @@
         #scene60 .dialogue-box, #scene70 .dialogue-box {
              background: rgba(0, 0, 0, 0.95);
              border: 1px solid #FF0000; 
-        }
-
-        .narrator-name {
-            font-weight: 800;
-            color: #FFC000; 
-            text-shadow: 0 0 3px rgba(0, 0, 0, 0.8);
-            margin-bottom: 5px;
-            /* Zostawiamy w 'em' – skaluje się relatywnie do rozmiaru bazowego dialog-boxa (który jest clampowany) */
-            font-size: 1.1em; 
-            display: block;
-            text-align: left;
-        }
-        .dialogue-text {
-            color: #F0F0F0;
-            /* Zostawiamy w 'em' – skaluje się relatywnie do rozmiaru bazowego dialog-boxa (który jest clampowany) */
-            font-size: 1.15em; 
-            line-height: 1.5;
-            margin-top: 5px;
         }
 
         /* STYLISTYKA PRZYCISKÓW - Stała wielkość (dla dotyku) */
