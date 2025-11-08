@@ -59,7 +59,7 @@
             backdrop-filter: blur(5px);
             -webkit-backdrop-filter: blur(5px);
             
-            /* 🔥 POPRAWKA A: Dynamiczny Padding skalujący się z Viewportem */
+            /* Dynamiczny Padding skalujący się z Viewportem */
             padding: 2vmin; 
             
             width: 95%; 
@@ -73,11 +73,11 @@
             /* Domyślny, minimalny odstęp od dołu */
             margin-bottom: 10px; 
             
-            /* 🔥 POPRAWKA iOS SAFE AREA: Dodanie marginesu strefy bezpieczeństwa */
+            /* POPRAWKA iOS SAFE AREA: Dodanie marginesu strefy bezpieczeństwa */
             margin-bottom: calc(10px + env(safe-area-inset-bottom, 0px));
         }
         
-        /* 🔥 KLUCZOWA POPRAWKA B: SKALOWANIE NAGŁÓWKÓW H1 i H2 (Mniejsze wartości) */
+        /* 🔥 PŁYNNA TYPOGRAFIA (Fluid Typography) dla TEKSTÓW */
         
         /* Nagłówek H1 (tytuł na scenie 1) */
         #scene1 h1 {
@@ -94,7 +94,7 @@
             line-height: 1.2;
         }
         
-        /* 🔥 NOWA POPRAWKA: SKALOWANIE TEKSTU DIALOGOWEGO (Mniejsze wartości) */
+        /* Tekst Narratora */
         .narrator-name {
             font-weight: 800;
             color: #FFC000; 
@@ -106,6 +106,7 @@
             text-align: left;
         }
         
+        /* Tekst Dialogowy */
         .dialogue-text {
             color: #F0F0F0;
             line-height: 1.5;
@@ -114,30 +115,15 @@
             font-size: clamp(13px, 0.6rem + 0.3vw, 16px); 
         }
 
-        /* STYL DLA LANDING PAGE - Dynamicznie skalowany */
-        #scene1 .dialogue-box {
-            background: rgba(0, 0, 0, 0.4);
-            border: 1px solid rgba(255, 255, 255, 0.1); 
-            width: 80%; 
-            max-width: 400px; 
-            padding: 4vmin; /* Większy padding dla sceny głównej */
-            text-align: center;
-            
-            /* Specjalny margines dla Landing Page */
-            margin-bottom: calc(50px + env(safe-area-inset-bottom, 0px)); 
-        }
-        
-        /* STYL DLA ZŁEGO ZAKOŃCZENIA */
-        #scene60 .dialogue-box, #scene70 .dialogue-box {
-             background: rgba(0, 0, 0, 0.95);
-             border: 1px solid #FF0000; 
-        }
-
-        /* STYLISTYKA PRZYCISKÓW - Stała wielkość (dla dotyku) */
+        /* STYLISTYKA PRZYCISKÓW AKCJI (FINALNA) */
         .choice-button, .action-button {
-            padding: 14px 20px;
+            /* 🔥 Nowa Płynna Typografia dla tekstu w przyciskach */
+            font-size: clamp(14px, 0.8rem + 0.3vw, 17px);
+            
+            /* Dynamiczny Padding skalujący się z Viewportem */
+            padding: 2.5vmin 4vmin; 
+            
             margin: 8px auto; 
-            font-size: 17px;
             border: none;
             border-radius: 6px;
             transition: background-color 0.3s;
@@ -163,7 +149,8 @@
             width: 45%; 
             max-width: 250px; 
             display: inline-block;
-            font-size: 16px;
+            /* Ponowne dostosowanie fontu dla przycisków obok siebie */
+            font-size: clamp(13px, 0.7rem + 0.2vw, 16px);
             margin: 8px 1%; 
         }
         
@@ -175,6 +162,23 @@
                 margin: 8px auto; 
             }
         }
+        
+        /* STYL DLA LANDING PAGE */
+        #scene1 .dialogue-box {
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.1); 
+            width: 80%; 
+            max-width: 400px; 
+            padding: 4vmin; /* Większy padding dla sceny głównej */
+            text-align: center;
+            margin-bottom: calc(50px + env(safe-area-inset-bottom, 0px)); 
+        }
+
+        /* STYL DLA ZŁEGO ZAKOŃCZENIA */
+        #scene60 .dialogue-box, #scene70 .dialogue-box {
+             background: rgba(0, 0, 0, 0.95);
+             border: 1px solid #FF0000; 
+        }
 
         /* Styl biletowy */
         #ticket-info {
@@ -182,9 +186,9 @@
             color: #333;
             padding: 40px;
             border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
             text-align: center;
-            margin-bottom: 50px;
+            margin-bottom: calc(50px + env(safe-area-inset-bottom, 0px));
             max-width: 350px;
             width: 90%; 
             border: 1px solid rgba(255, 255, 255, 0.5); 
