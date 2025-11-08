@@ -2,7 +2,7 @@
 <html lang="pl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Maks Jabłko i Noc Saunowa</title>
     <style>
         /* CSS DLA STRUKTURY GRY */
@@ -13,14 +13,16 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
+            /* Użycie dvh (Dynamic Viewport Height) dla lepszej kompatybilności na iOS */
+            min-height: 100dvh; 
             background-color: #1a1a1a;
             color: white;
             overflow: hidden;
         }
         #game-container {
             width: 100%;
-            height: 100vh;
+            /* Użycie dvh */
+            height: 100dvh; 
             position: relative;
             background-color: #000;
             overflow: hidden;
@@ -71,24 +73,28 @@
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
             text-align: left;
             font-size: 16px; 
+            
+            /* 🔥 KLUCZOWA POPRAWKA iOS: DODANIE MARGINESU STREFY BEZPIECZEŃSTWA */
+            /* Zapewnia, że element jest wyżej niż pasek nawigacji iOS */
+            margin-bottom: calc(25px + env(safe-area-inset-bottom, 0px));
         }
         
-        /* 🔥 WARSTWA 1: OPTYMALIZACJA DLA EKRANÓW PONIŻEJ 450px (Większość telefonów) */
+        /* WARSTWY OPTYMALIZACJI DLA EKRANÓW MOBILNYCH (poniżej 450px) */
         @media (max-width: 450px) {
             .dialogue-box {
-                /* Zmniejszanie fizycznego rozmiaru skrzynki */
                 padding: 15px; 
-                margin-bottom: 10px; /* Zmniejszenie dystansu od dołu ekranu */
+                /* Przeliczanie marginesu dla małych ekranów + Safe Area */
+                margin-bottom: calc(10px + env(safe-area-inset-bottom, 0px)); 
                 font-size: 15px; 
             }
         }
         
-        /* 🔥 WARSTWA 2: OPTYMALIZACJA DLA NAJMNIEJSZYCH EKRANÓW (poniżej 350px) */
+        /* WARSTWY OPTYMALIZACJI DLA NAJMNIEJSZYCH EKRANÓW (poniżej 350px) */
         @media (max-width: 350px) {
              .dialogue-box {
-                /* Maksymalna kompresja dla małych urządzeń */
                 padding: 12px; 
-                margin-bottom: 5px; 
+                /* Przeliczanie marginesu dla "Tiny" ekranów + Safe Area */
+                margin-bottom: calc(5px + env(safe-area-inset-bottom, 0px)); 
                 font-size: 14px; 
             }
             .choice-button, .action-button {
@@ -104,10 +110,14 @@
             width: 80%; 
             max-width: 400px; 
             padding: 25px; 
-            margin-bottom: 50px; 
+            
+            /* Specjalny margines dla Landing Page */
+            margin-bottom: calc(50px + env(safe-area-inset-bottom, 0px)); 
             text-align: center;
         }
         
+        /* ... (pozostały CSS bez zmian) ... */
+
         /* STYL DLA ZŁEGO ZAKOŃCZENIA */
         #scene60 .dialogue-box, #scene70 .dialogue-box {
              background: rgba(0, 0, 0, 0.95);
