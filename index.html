@@ -36,8 +36,12 @@
             justify-content: flex-end;
             align-items: center;
             text-align: center;
-            background-size: cover;
+            
+            /* 🔥 KLUCZOWA POPRAWKA SCALOWANIA OBRAZU */
+            background-size: contain; /* Obraz będzie w całości widoczny, bez obcinania */
+            background-repeat: no-repeat; /* Zapobiega powielaniu obrazu */
             background-position: center;
+            
             transition: opacity 0.5s ease-in-out;
             opacity: 0;
             padding: 20px;
@@ -56,33 +60,33 @@
             padding: 20px;
             border-radius: 12px;
             margin-bottom: 25px;
-            width: 95%; /* Szerokość mobilna */
-            max-width: 600px; /* Ograniczenie na PC */
+            width: 95%; 
+            max-width: 600px; 
             min-height: 70px;
             border: 1px solid rgba(255, 255, 255, 0.2); 
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
             text-align: left;
         }
-        /* STYL DLA LANDING PAGE - Mniejszy i wyśrodkowany blok */
+        /* STYL DLA LANDING PAGE */
         #scene1 .dialogue-box {
             background: rgba(0, 0, 0, 0.4);
             border: 1px solid rgba(255, 255, 255, 0.1); 
-            width: 80%; /* Węższy */
-            max-width: 400px; /* Węższy */
+            width: 80%; 
+            max-width: 400px; 
             padding: 25px; 
             margin-bottom: 50px; 
             text-align: center;
         }
         
-        /* STYL DLA ZŁEGO ZAKOŃCZENIA - Czarne i Mroczne */
+        /* STYL DLA ZŁEGO ZAKOŃCZENIA */
         #scene60 .dialogue-box, #scene70 .dialogue-box {
              background: rgba(0, 0, 0, 0.95);
-             border: 1px solid #FF0000; /* Czerwona ramka ostrzegawcza */
+             border: 1px solid #FF0000; 
         }
 
         .narrator-name {
             font-weight: 800;
-            color: #FFC000; /* Złoty akcent */
+            color: #FFC000; 
             text-shadow: 0 0 3px rgba(0, 0, 0, 0.8);
             margin-bottom: 5px;
             font-size: 1.1em;
@@ -91,12 +95,12 @@
         }
         .dialogue-text {
             color: #F0F0F0;
-            font-size: 1.15em; /* Lepsza czytelność mobilna */
+            font-size: 1.15em; 
             line-height: 1.5;
             margin-top: 5px;
         }
 
-        /* STYLISTYKA PRZYCISKÓW (MOBILNA) */
+        /* STYLISTYKA PRZYCISKÓW */
         .choice-button, .action-button {
             padding: 14px 20px;
             margin: 8px auto; 
@@ -105,10 +109,10 @@
             border-radius: 6px;
             transition: background-color 0.3s;
             cursor: pointer;
-            width: 90%; /* Domyślnie na całą szerokość */
-            max-width: 350px; /* Ograniczenie na PC */
+            width: 90%; 
+            max-width: 350px; 
             display: block; 
-            text-decoration: none; /* Dla linków, jak w scenie 11 */
+            text-decoration: none; 
             box-sizing: border-box;
         }
         .choice-button {
@@ -123,18 +127,18 @@
         /* Dwa przyciski obok siebie (Scena 3) */
         #scene3 .choice-button {
             width: 45%; 
-            max-width: 250px; /* Mniejsze ograniczenie */
+            max-width: 250px; 
             display: inline-block;
             font-size: 16px;
-            margin: 8px 1%; /* Mniejszy margines boczny */
+            margin: 8px 1%; 
         }
         
-        /* POPRAWKA RESPONSYWNOŚCI: Na małych ekranach przyciski znów jeden pod drugim */
+        /* Poprawka mobilna dla Sceny 3 */
         @media (max-width: 600px) {
             #scene3 .choice-button {
-                width: 90%; /* Pełna szerokość na małych ekranach */
-                display: block; /* Ustawienie na blokowe, aby były jeden pod drugim */
-                margin: 8px auto; /* Wyśrodkowanie */
+                width: 90%; 
+                display: block; 
+                margin: 8px auto; 
             }
         }
         
@@ -148,14 +152,12 @@
             text-align: center;
             margin-bottom: 50px;
             max-width: 350px;
-            width: 90%; /* Responsywność */
+            width: 90%; 
             border: 1px solid rgba(255, 255, 255, 0.5); 
         }
 
-        /* KLASA POPRAWIAJĄCA SKALOWANIE SZEROKICH OBRAZÓW (jeśli są) */
+        /* Klasa .wide-scene staje się zbędna, ale zostawiam ją, aby zapewnić czarne tło pod obrazem */
         .wide-scene {
-            background-size: contain !important; 
-            background-repeat: no-repeat !important;
             background-color: #000 !important; 
         }
 
@@ -331,18 +333,17 @@
     let currentScene = 1;
     
     function showScene(sceneID) {
-        // 1. Ukrywamy wszystkie sceny i resetujemy opacity
+        // Ukrywamy wszystkie sceny i resetujemy opacity
         document.querySelectorAll('.scene').forEach(scene => {
             scene.classList.remove('active');
             scene.style.opacity = '0'; 
         });
 
-        // 2. Aktywujemy następną scenę
+        // Aktywujemy następną scenę
         const nextSceneElement = document.getElementById('scene' + sceneID);
         if (nextSceneElement) {
             nextSceneElement.classList.add('active');
             currentScene = sceneID;
-            // Opacity='1' zostanie ustawione przez funkcję nextScene po opóźnieniu
         }
     }
 
@@ -372,6 +373,7 @@
         showScene(1);
     });
 </script>
+
 </body>
 
 </html>
