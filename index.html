@@ -13,15 +13,13 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            /* Użycie dvh (Dynamic Viewport Height) dla lepszej kompatybilności na iOS */
-            min-height: 100dvh; 
+            min-height: 100dvh; /* Dynamic Viewport Height */
             background-color: #1a1a1a;
             color: white;
             overflow: hidden;
         }
         #game-container {
             width: 100%;
-            /* Użycie dvh */
             height: 100dvh; 
             position: relative;
             background-color: #000;
@@ -55,15 +53,15 @@
             opacity: 1; 
         }
         
-        /* STYL DIALOGU (UX) - BAZA */
+        /* STYL DIALOGU (UX) - BAZA Z DYNAMICZNYM PADDINGIEM */
         .dialogue-box {
             background: rgba(0, 0, 0, 0.65);
             backdrop-filter: blur(5px);
             -webkit-backdrop-filter: blur(5px);
             
-            /* Domyślne wartości (dla PC/większych tabletów) */
-            padding: 20px;
-            margin-bottom: 25px; 
+            /* 🔥 KLUCZOWA POPRAWKA: Dynamiczny Padding skalujący się z Viewportem */
+            /* 1.5vmin to około 6-10px na większości telefonów, mniej na mniejszych */
+            padding: 2vmin; 
             
             width: 95%; 
             max-width: 600px; 
@@ -72,52 +70,30 @@
             border: 1px solid rgba(255, 255, 255, 0.2); 
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
             text-align: left;
-            font-size: 16px; 
             
-            /* 🔥 KLUCZOWA POPRAWKA iOS: DODANIE MARGINESU STREFY BEZPIECZEŃSTWA */
-            /* Zapewnia, że element jest wyżej niż pasek nawigacji iOS */
-            margin-bottom: calc(25px + env(safe-area-inset-bottom, 0px));
+            /* Domyślny, minimalny odstęp od dołu */
+            margin-bottom: 10px; 
+            
+            /* 🔥 POPRAWKA iOS SAFE AREA: Dodanie marginesu strefy bezpieczeństwa */
+            margin-bottom: calc(10px + env(safe-area-inset-bottom, 0px));
+            
+            /* Font size skalowany względem viewportu (mniej agresywnie niż padding) */
+            font-size: calc(14px + 0.3vmin);
         }
         
-        /* WARSTWY OPTYMALIZACJI DLA EKRANÓW MOBILNYCH (poniżej 450px) */
-        @media (max-width: 450px) {
-            .dialogue-box {
-                padding: 15px; 
-                /* Przeliczanie marginesu dla małych ekranów + Safe Area */
-                margin-bottom: calc(10px + env(safe-area-inset-bottom, 0px)); 
-                font-size: 15px; 
-            }
-        }
-        
-        /* WARSTWY OPTYMALIZACJI DLA NAJMNIEJSZYCH EKRANÓW (poniżej 350px) */
-        @media (max-width: 350px) {
-             .dialogue-box {
-                padding: 12px; 
-                /* Przeliczanie marginesu dla "Tiny" ekranów + Safe Area */
-                margin-bottom: calc(5px + env(safe-area-inset-bottom, 0px)); 
-                font-size: 14px; 
-            }
-            .choice-button, .action-button {
-                font-size: 14px;
-                padding: 10px 15px;
-            }
-        }
-
-        /* STYL DLA LANDING PAGE */
+        /* STYL DLA LANDING PAGE - Dynamicznie skalowany */
         #scene1 .dialogue-box {
             background: rgba(0, 0, 0, 0.4);
             border: 1px solid rgba(255, 255, 255, 0.1); 
             width: 80%; 
             max-width: 400px; 
-            padding: 25px; 
+            padding: 4vmin; /* Większy padding dla sceny głównej */
+            text-align: center;
             
             /* Specjalny margines dla Landing Page */
             margin-bottom: calc(50px + env(safe-area-inset-bottom, 0px)); 
-            text-align: center;
         }
         
-        /* ... (pozostały CSS bez zmian) ... */
-
         /* STYL DLA ZŁEGO ZAKOŃCZENIA */
         #scene60 .dialogue-box, #scene70 .dialogue-box {
              background: rgba(0, 0, 0, 0.95);
@@ -140,7 +116,7 @@
             margin-top: 5px;
         }
 
-        /* STYLISTYKA PRZYCISKÓW */
+        /* STYLISTYKA PRZYCISKÓW - Wciąż stała wielkość, dla lepszej interaktywności dotykowej */
         .choice-button, .action-button {
             padding: 14px 20px;
             margin: 8px auto; 
@@ -174,7 +150,7 @@
             margin: 8px 1%; 
         }
         
-        /* Poprawka mobilna dla Sceny 3 */
+        /* Poprawka mobilna dla Sceny 3 - Wymaga Media Query */
         @media (max-width: 600px) {
             #scene3 .choice-button {
                 width: 90%; 
